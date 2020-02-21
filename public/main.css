@@ -84,6 +84,18 @@ body, .tooltip
 
 .display-3 {
   font-size: 4.35rem;
+  text-align: center;
+  font-weight: 100;
+}
+.sign-container{
+  display: block;
+}
+
+.text2{
+  margin-bottom: -50px;
+}
+#app-text{
+  font-weight: 800;
 }
 
 @media (max-width: 768px) {

@@ -23,7 +23,7 @@
             <input name="password" class="form-control form-control-sm input-dark" type="password" placeholder="Password">
           </div>
           <div class="col-md-auto">
-            <button class="btn btn-primary btn-sm">Sign In</button>
+            <button class="btn btn btn-outline-light btn-sm">Sign In</button>
           </div>
         </div>
       </form>      
@@ -34,9 +34,10 @@
 <div class="container py-md-5">
 
   <div class="row align-items-center">
-    <div class="col-lg-7 py-3 py-md-5">
-      <h1 class="display-3">Remember Writing?</h1>      
-      <p class="lead text-muted">Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing is the key to enjoying the internet again.</p>
+   
+    <div class="sign-container col-lg-7 py-3 py-md-5">
+      <h1 class="display-3">Your new social</h1>      
+      <h1 class="display-3">media<strong id="app-text">app</strong></h1>      
     </div>
     <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
       <form action="/register" method="POST" id="registration-form">
@@ -56,7 +57,7 @@
             <input name="password" id="password-register" class="form-control" type="password" placeholder="Create a password">
           </div>
           
-          <button type="submit" class="py-3 mt-4 btn btn-lg btn-success btn-block">Sign up for OurApp</button>
+          <button type="submit" class="py-3 mt-4 btn btn-lg btn btn-outline-dark btn-block">Sign up for OurApp</button>
           
         </form>
       </div>
@@ -65,7 +66,7 @@
   
 <!-- footer begins -->
 <footer class="border-top text-center small text-muted py-3">
-  <p class="m-0">Copyright &copy; 2019 <a href="/" class="text-muted">OurApp</a>. All rights reserved.</p>
+  <p class="m-0">Copyright &copy; <%= new Date().getFullYear() %>  <a href="/" class="text-muted">OurApp</a>. All rights reserved.</p>
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

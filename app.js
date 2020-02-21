@@ -11,4 +11,6 @@ app.set('view engine', 'ejs') // letting express know which template is going to
 
 app.use('/', router)
 
+console.log(new Date().getFullYear())
+
 app.listen(3000)
