@@ -3,6 +3,7 @@ const User = require('../models/User')
 exports.login = function(req, res){
     let user = new User(req.body)
     user.login().then(function(result){
+        req.session.user = {favColor: "red", username: user.data.username}
         res.send(result)
     }).catch(function(e){
         res.send(e)
@@ -23,5 +24,10 @@ exports.register = function(req, res){
 }
 
 exports.home = function(req, res){
-    res.render('home-guest')
+    if(req.session.user){
+        res.send('welcome to the actual app')
+
+    } else{
+        res.render('home-guest') 
+    }
 }

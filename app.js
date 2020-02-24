@@ -1,6 +1,21 @@
 const express = require('express')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 const app = express()
 const router = require('./router')
+
+let sessionOptions = session({ // configuration session to enable session
+    secret: 'JavaScript is soo cool',
+    store: new MongoStore({client: require('./db')}), // overwrite default store option in order to store session in mongodb
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24,
+        httpOnly: true
+    }
+})
+
+app.use(sessionOptions)
 
 app.use(express.urlencoded({extended: false})) // tells express to add that users submitting data  to request object (req.body)
 app.use(express.json()) // allows to send json data

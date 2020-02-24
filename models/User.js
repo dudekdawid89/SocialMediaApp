@@ -1,4 +1,4 @@
-const userCollection = require('../db').collection('users') // required database object and looked inside for collection -users-
+const userCollection = require('../db').db().collection('users') // required database object and looked inside for collection -users-
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
