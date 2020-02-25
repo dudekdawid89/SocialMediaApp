@@ -33,7 +33,6 @@ User.prototype.login = function(){
     }).catch(function(){
         reject("Please try again later")
     })
-        
     })
 }
 

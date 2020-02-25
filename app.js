@@ -3,6 +3,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const app = express()
 const router = require('./router')
+const flash = require('connect-flash')
 
 let sessionOptions = session({ // configuration session to enable session
     secret: 'JavaScript is soo cool',
@@ -16,6 +17,7 @@ let sessionOptions = session({ // configuration session to enable session
 })
 
 app.use(sessionOptions)
+app.use(flash())  // use package for flashing messages on website
 
 app.use(express.urlencoded({extended: false})) // tells express to add that users submitting data  to request object (req.body)
 app.use(express.json()) // allows to send json data
