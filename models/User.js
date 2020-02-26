@@ -22,6 +22,7 @@ User.prototype.cleanUp = function(){
     }
 }
 
+
 User.prototype.login = function(){
     return new Promise((resolve, reject) => {
         this.cleanUp()
@@ -38,6 +39,7 @@ User.prototype.login = function(){
     })
     })
 }
+
 
 User.prototype.validate = function(){
     return new Promise(async(resolve, reject) => {
