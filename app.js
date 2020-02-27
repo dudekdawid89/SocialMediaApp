@@ -1,7 +1,9 @@
 const express = require('express')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
+const markdown = require('marked')
 const app = express()
+const sanitizeHTML = require('sanitize-html')
 
 const flash = require('connect-flash')
 
@@ -20,9 +22,24 @@ app.use(sessionOptions)
 app.use(flash())  // use package for flashing messages on website
 
 app.use(function(req, res, next){
+    //make our markdown function available form within ejs template
+    res.locals.filterUserHTML = function(content){
+        return sanitizeHTML(markdown(content), {allowedTags:['p','br','ul', 'ol','li','strong', 'bold', 'i', 'em', 'h1','h2','h3','h4','h5','h6'], allowedAttributes: []})
+    }
+    // make all error and success flash messages available form all req
+    res.locals.errors = req.flash('errors')
+    res.locals.success = req.flash('success')
+    //make current user id available on the req object
+    if(req.session.user){
+        req.visitorId = req.session.user._id
+    }else{
+        req.visitorId = 0
+    }
+    // make user session data avaiable from wuthin view templates
     res.locals.user = req.session.user
     next()
 }) //passing user controller session data to every routes
+
 
 const router = require('./router')
 
