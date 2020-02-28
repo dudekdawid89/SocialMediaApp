@@ -135,4 +135,20 @@ Post.findByAuthorId = function(authorId){
         {$sort: {createDate: -1}}
     ])
 }
+
+Post.delete = function(postIdToDelete, currentUserId){
+    return new Promise(async (resolve, reject) => {
+        try{
+            let post = await Post.findSingleById(postIdToDelete, currentUserId)
+            if(post.isVisitorOwner){
+                await postsCollection.deleteOne({_id: new ObjectID(postIdToDelete)})
+                resolve()
+            }else{
+                reject() // if someone is trying to delete the post they dont own
+            }
+        }catch{
+            reject() // if this runs that means the post ID is not valid or post does not exist
+        }
+    })
+}
 module.exports = Post
