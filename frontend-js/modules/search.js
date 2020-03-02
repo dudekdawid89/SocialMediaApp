@@ -1,4 +1,5 @@
 import axios from 'axios'
+import DOMPurify from 'dompruify'
 export default class Search {
     // 1. Select DOM elements, and keep track of any useful data
     constructor(){
@@ -52,7 +53,7 @@ export default class Search {
 
     renderResultsHTML(posts){
       if(posts.length){
-        this.resultArea.innerHTML = `
+        this.resultArea.innerHTML = DOMPurify.sanitize(`
         <div class="list-group shadow-sm">
             <div class="list-group-item active"><strong>Search Results</strong> (${posts.length > 1 ? `${posts.length} items found` : '1 item found'})</div>
             ${posts.map(post => {
@@ -63,7 +64,7 @@ export default class Search {
               <span class="text-muted small">by ${post.author.username} on ${postDate.getMonth()+1}/${postDate.getDate()}/${postDate.getFullYear()}</span>
             </a>`
             }).join('')}
-          </div>`
+          </div>`)
       }else{
         this.resultArea.innerHTML = `<p class="alert alert-danger text-center shadow-sm"> Sorry we cant find any results for that search.</p>`
       }

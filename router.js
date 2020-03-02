@@ -1,22 +1,25 @@
 const express = require('express')
 const router = express.Router()
-const userConstroller = require('./controllers/userController')
-const postConstroller = require('./controllers/postController')
+const userController = require('./controllers/userController')
+const postController = require('./controllers/postController')
+const followController = require('./controllers/followControllers')
 // user related routes
-router.get('/', userConstroller.home)
-router.post('/register', userConstroller.register)
-router.post('/login', userConstroller.login)
-router.post('/logout', userConstroller.logout)
+router.get('/', userController.home)
+router.post('/register', userController.register)
+router.post('/login', userController.login)
+router.post('/logout', userController.logout)
 // profile realted routes
-router.get('/profile/:username', userConstroller.ifUserExists, userConstroller.profilePostsScreen)
+router.get('/profile/:username', userController.ifUserExists, userController.profilePostsScreen)
 // post realated routes
-router.get('/create-post', userConstroller.mustBeLoggedIn, postConstroller.viewCreateScreen)
-router.post('/create-post', userConstroller.mustBeLoggedIn, postConstroller.create)
-router.get('/post/:id', postConstroller.viewSingle)
-router.get('/post/:id/edit',userConstroller.mustBeLoggedIn, postConstroller.viewEditScreen)
-router.post('/post/:id/edit',userConstroller.mustBeLoggedIn, postConstroller.edit)
-router.post('/post/:id/delete',userConstroller.mustBeLoggedIn, postConstroller.delete)
-router.post('/search',postConstroller.search)
+router.get('/create-post', userController.mustBeLoggedIn, postController.viewCreateScreen)
+router.post('/create-post', userController.mustBeLoggedIn, postController.create)
+router.get('/post/:id', postController.viewSingle)
+router.get('/post/:id/edit',userController.mustBeLoggedIn, postController.viewEditScreen)
+router.post('/post/:id/edit',userController.mustBeLoggedIn, postController.edit)
+router.post('/post/:id/delete',userController.mustBeLoggedIn, postController.delete)
+router.post('/search',postController.search)
 
+//follow related routes
+router.post('/addFollow/:username', userController.mustBeLoggedIn, followController.addFollow)
 
 module.exports = router
