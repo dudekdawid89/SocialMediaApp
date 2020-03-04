@@ -1,5 +1,5 @@
 import axios from 'axios'
-import DOMPurify from 'dompruify'
+import DOMPurify from 'dompurify'
 export default class Search {
     // 1. Select DOM elements, and keep track of any useful data
     constructor(){

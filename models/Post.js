@@ -1,4 +1,5 @@
 const postsCollection = require('../db').db().collection('posts')
+const followsCollection = require('../db').db().collection('follows')
 const ObjectID = require('mongodb').ObjectID
 const User = require('./User')
 const sanitizeHTML = require('sanitize-html')
@@ -21,13 +22,13 @@ Post.prototype.cleanUp = function(){
         createDate: new Date(),
         author: ObjectID(this.userId)
     }
-    console.log('this.data :', this.data);
+    
 }
 Post.prototype.validate = function(){
     
     if(this.data.title == ""){this.errors.push("You must provide a title")}
     if(this.data.body == ""){this.errors.push("You must provide post content")}
-    console.log('this.data.title validate :', this.data.title);
+   
 }
 
 Post.prototype.create = function(){
@@ -37,7 +38,7 @@ Post.prototype.create = function(){
         if(!this.errors.length){
             // save post into database
             postsCollection.insertOne(this.data).then((info) => {
-                console.log('this.data inside create :', this.data);
+                
                 resolve(info.ops[0]._id)
             }).catch(() => {
                 this.errors.push('Please try again later')
@@ -165,5 +166,29 @@ Post.search = function(searchTerm){
             reject()
         }
     })
+}
+
+Post.countPostByAuthor = function(id){
+    return new Promise(async (resolve, reject) =>{
+        let postCount = await postsCollection.countDocuments({author : id})
+        resolve(postCount)
+    })
+}
+
+Post.getFeed = async function(id){
+    // create array of the user ids that the current user follows
+        let followedUsers = await followsCollection.find({authorId: new ObjectID(id)}).toArray()
+
+        followedUsers = followedUsers.map(function(followDoc){
+            console.log('followDoc :', followDoc.follo);
+            return followDoc.followedId
+        })
+        
+    // look for posts where the author is in the above array of followed users
+        return Post.reuseablePostQuery([
+            {$match: {author: {$in: followedUsers}}},
+            {$sort: {createDate: -1}}
+        ])
+
 }
 module.exports = Post

@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const md5 = require('md5')
 
 let User = function(data, getAvatar){
-    console.log('data :', data);
+   
     this.data = data
     this.errors = []
     if(getAvatar == undefined){
