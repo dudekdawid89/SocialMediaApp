@@ -22,7 +22,7 @@ exports.create = function(req, res){
 exports.viewSingle = async function(req, res){
     try{
         let post = await Post.findSingleById(req.params.id, req.visitorId)
-        res.render('single-post-screen', {post: post})
+        res.render('single-post-screen', {post: post, title: post.title})
     } catch{
         res.render('404')
     }
@@ -31,10 +31,12 @@ exports.viewSingle = async function(req, res){
 exports.viewEditScreen = async function(req, res){
     try{
         let post = await Post.findSingleById(req.params.id)
+        console.log('req.params.id :', req.params.id);
+        console.log('post now :', post);
         if(post.authorId == req.visitorId){
             res.render('edit-post', {post: post})
         }else{
-            req.flash('errors', "You do not have permission to perform that action")
+            req.flash('errors', "You do not have permission to perform that action ")
             req.session.save(()=> res.redirect('/'))
         }
     }catch{

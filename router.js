@@ -3,11 +3,14 @@ const router = express.Router()
 const userController = require('./controllers/userController')
 const postController = require('./controllers/postController')
 const followController = require('./controllers/followControllers')
+
 // user related routes
 router.get('/', userController.home)
 router.post('/register', userController.register)
 router.post('/login', userController.login)
 router.post('/logout', userController.logout)
+router.post('/doesUsernameExist', userController.doesUsernameExist)
+router.post('/doesEmailExist', userController.doesEmailExist)
 // profile realted routes
 router.get('/profile/:username', userController.ifUserExists, userController.sharedProfileData, userController.profilePostsScreen)
 router.get('/profile/:username/followers', userController.ifUserExists, userController.sharedProfileData, userController.profileFollowersScreen)

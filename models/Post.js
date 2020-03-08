@@ -22,6 +22,7 @@ Post.prototype.cleanUp = function(){
         createDate: new Date(),
         author: ObjectID(this.userId)
     }
+    console.log('this.data :', this.data);
     
 }
 Post.prototype.validate = function(){
@@ -121,7 +122,7 @@ Post.findSingleById = function(id, visitorId){
         let posts = await Post.reuseablePostQuery([
             {$match: {_id: new ObjectID(id)}}
         ], visitorId)
-        console.log('post :', posts);
+        console.log('post11111 :', posts);
         if(posts.length){
             console.log('post[0] :', posts[0]);
             resolve(posts[0])
