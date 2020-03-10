@@ -7,7 +7,10 @@ const csrf = require('csurf')
 const app = express()
 const sanitizeHTML = require('sanitize-html')
 
+app.use(express.urlencoded({extended: false})) // tells express to add that users submitting data  to request object (req.body)
+app.use(express.json()) // allows to send json data
 
+app.use('/api', require('./router-api'))
 
 
 let sessionOptions = session({ // configuration session to enable session
@@ -46,8 +49,7 @@ app.use(function(req, res, next){
 
 const router = require('./router')
 
-app.use(express.urlencoded({extended: false})) // tells express to add that users submitting data  to request object (req.body)
-app.use(express.json()) // allows to send json data
+
 app.use(express.static('public')) // make Public folder accessible
 
 app.set('views', 'views')  // code for setting Views name
