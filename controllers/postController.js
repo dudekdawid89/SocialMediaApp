@@ -62,6 +62,8 @@ exports.viewSingle = async function(req, res){
 }
 
 exports.viewEditScreen = async function(req, res){
+    console.log('req.params.id :', req.params.id);
+    console.log('req.visitorId :', req.visitorId);
     try{
         let post = await Post.findSingleById(req.params.id)
         console.log('req.params.id :', req.params.id);
